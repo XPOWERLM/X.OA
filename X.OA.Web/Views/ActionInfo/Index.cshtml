@@ -1,0 +1,158 @@
+﻿@model X.OA.Model.ActionInfo
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Styles.Render("~/Content/themes/default/css", "~/Content/themes/easyuicon", "~/Content/css")
+
+</head>
+<body>
+    @*Search*@
+    <div id="dvSearch" class="row">
+        <form id="searchForm">
+            <div class="col-sm-2"></div>
+            <div class="input-group col-sm-7">
+                <input placeholder="权限名" class="form-control input-sm" type="text" name="searchName" id="searchName" value="" />&nbsp;
+                <input placeholder="备注" class="form-control input-sm" type="text" name="searchRemark" id="searchRemark" value="" />&nbsp;
+                <div class="input-group-btn">
+                    <input type="button" class="btn btn-warning btn-sm" value="搜索" id="btnSearch" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    @*Action info*@
+    <table id="dgActionInfo" title="Action Info" class="easyui-datagrid" style="width:auto;height:auto;"
+           url="/ActionInfo/RetrieveAction"
+           idField="ID" pagination="true"
+           iconCls="icon-remove"
+           toolbar="#tbActionInfo">
+
+        <thead>
+            <tr>
+                <th field="ck" checkbox="true"></th>
+                <th field="ID" width="80">编号</th>
+                <th field="ActionInfoName" width="80">权限名称</th>
+                <th field="Sort" width="80">排序</th>
+                <th field="Remark" width="80">备注</th>
+                <th field="Url" width="80">请求地址</th>
+                <th field="HttpMethod" width="80">请求方式</th>
+                <th field="ActionTypeEnum" width="80">权限类型</th>
+                <th field="ModifiedOn" width="80" align="right">ModifiedOn</th>
+            </tr>
+        </thead>
+    </table>
+
+    @*Add Action*@
+    <div id="dgAddAction">
+        @using (Ajax.BeginForm("CreateAction", "ActionInfo", new AjaxOptions { HttpMethod = "Post", OnSuccess = "addCallback" }, new { id = "dgAddActionForm", style = "display:none;" }))
+        {
+        <table class="table table-hover table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th colspan="2">添加权限信息</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.LabelFor(l => l.ActionInfoName)</td>
+                    <td>@Html.TextBoxFor(l => l.ActionInfoName)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(l => l.Url)</td>
+                    <td>@Html.TextBoxFor(l => l.Url)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(a => a.HttpMethod, new { @for = "HttpMethod" })</td>
+                    <td>
+                        <select name="HttpMethod" id="HttpMethod">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(a => a.ActionTypeEnum, new { @for = "ActionTypeEnum" })</td>
+                    <td>
+                        <select name="ActionTypeEnum" value="1" id="ActionTypeEnum">
+                            <option value="0">普通权限</option>
+                            <option value="1">菜单权限</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr style="display:none;" class="hiddenArea">
+                    <td>菜单图片</td>
+                    <td>
+                        <div>
+                            <input type="file" name="fileMenuIcon" id="fileMenuIcon" value="浏览..." class="form-control" />
+                            <input type="button" id="btnUploadIcon" value="上传" class="btn btn-primary" />
+                            <input type="hidden" name="MenuIcon" id="MenuIcon" value="" />
+                            <progress id="uploadProgress"></progress>
+                            <img id="uploadPic" src="" style="width:40px;height:40px;" alt="" />
+                            @Html.HiddenFor(model => model.IconWidth, new { id = "uploadIconWidth" })
+                            @Html.HiddenFor(model => model.IconHeight, new { id = "uploadIconHeight" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(l => l.Remark)</td>
+                    <td>@Html.TextBoxFor(l => l.Remark)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(l => l.Sort)</td>
+                    <td>@Html.TextBoxFor(l => l.Sort)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.ActionMethodName, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                    <td>@Html.EditorFor(model => model.ActionMethodName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.ControllerName, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                    <td>@Html.EditorFor(model => model.ControllerName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+
+            </tbody>
+        </table>
+        }
+    </div>
+
+    @*Edit Action*@
+    <div id="dgEditAction" style="display:none;">
+        <iframe src="" id="iframeEdit" frameborder="0" style="width:100%;height:100%;"></iframe>
+        @*@using (Ajax.BeginForm("EditAction", "ActionInfo", new AjaxOptions { HttpMethod = "Post", OnSuccess = "editCallback" }, new { id = "dgEditActionForm", style = "display:none;" }))
+            {
+                @Html.LabelFor(l => l.ActionInfoName, new { @for = "editUName" })
+                @Html.TextBoxFor(l => l.ActionInfoName, new { id = "editUName" })
+                <br />
+                @Html.LabelFor(l => l.Remark, new { @for = "editUPwd" })
+                @Html.TextBoxFor(l => l.Remark, new { id = "editUPwd" })
+                <br />
+                @Html.LabelFor(l => l.ModifiedOn, new { @for = "editRemark" })
+                @Html.TextBoxFor(l => l.ModifiedOn, new { id = "editRemark" })
+
+                @Html.HiddenFor(l => l.ID, new { id = "editID" })
+            }*@
+    </div>
+
+    @*Set role*@
+    <div id="divSetRole" style="display:none;">
+        <iframe id="iframeSetRole" style="width:100%;height:100%"></iframe>
+    </div>
+
+    @*toolbar*@
+    <div id="tbActionInfo">
+        <a href="#" id="tbBtnAdd" class="easyui-linkbutton" iconCls="icon-add" plain="true">Add</a>
+        <a href="#" id="tbBtnEdit" class="easyui-linkbutton" iconCls="icon-edit" plain="true">Edit</a>
+        <a href="#" id="tbBtnDel" class="easyui-linkbutton" iconCls="icon-remove" plain="true">Delete</a>
+        <a href="#" id="tbBtnSetRole" class="easyui-linkbutton" iconCls="icon-add" plain="true">SetRole</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true">Save</a>
+    </div>
+</body>
+</html>
+@Scripts.Render("~/bundles/jqueryAjaxBootstrap", "~/bundles/easyui", "~/Scripts/ActionInfo/Index")

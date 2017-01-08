@@ -1,0 +1,93 @@
+﻿@model IEnumerable<X.OA.Model.WF_Temp>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundle/bootstrap")
+
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TempName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModfiedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DelFlag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TempDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TempForm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TempStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubBy)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.TempName)*@
+                <a href="/WFInstance/StartWorkflow?id=@item.ID" >@item.TempName</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModfiedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DelFlag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TempDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TempForm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TempStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubBy)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

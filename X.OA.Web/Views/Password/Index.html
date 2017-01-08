@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>恢复你的帐户</title>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <script src="../../Scripts/jquery-1-11-3.js"></script>
+    <script src="../../Scripts/bootstrap.js"></script>
+    <style>
+        body.cb {
+            text-align: center;
+        }
+
+
+        img {
+            vertical-align: middle;
+        }
+
+        #iSigninName{
+            margin: 0 auto;
+        }
+
+        #textCAPTCHA{
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        #imgCAPTCHA{
+            max-width: 390px;
+        }
+
+        #container {
+            text-align: center;
+        }
+
+
+        .text-subheader, h2 {
+            font-size: 34px;
+            line-height: 40px;
+            font-weight: 200;
+            font-size: 2.12rem;
+            line-height: 2.5rem;
+            padding-bottom: 3.18px;
+            padding-top: 3.18px;
+        }
+
+        .email-input-max-width {
+            max-width: 390px;
+        }
+    </style>
+</head>
+<body class="cb">
+    <div class="textbody">
+        <img src="../../Content/Images/AppCentipede_Microsoft.png" alt="" class="img-centipede" />
+    </div>
+    <div id="container" class="row">
+        <div class="text-subheader" id="iResetPwdHipTitle">恢复你的帐户</div>
+        <div class="row">
+            <div class="col-xs-24 text-body text-block-body" id="iExplanationText" >我们可以帮助你重置密码和安全信息。首先，请输入你的 OA 帐户，然后按照下面的说明操作。</div>
+        </div>
+        <input name="iSigninName" class="form-control dirltr email-input-max-width" id="iSigninName" lang="en" type="email" maxlength="113" placeholder="OA 用户名" >
+        <input name="iSigninEmail" style="margin:0 auto;" class="form-control dirltr email-input-max-width" id="iSigninEmail" lang="en" type="text" maxlength="113" placeholder="电子邮件">
+        <img src="../../Content/Images/CAPTCHA.png" id="imgCAPTCHA" alt="" />
+        <input name="CAPTCHA" class="spHipNoClear form-control email-input-max-width" id="textCAPTCHA" style="text-align: left;" spellcheck="false" aria-label="输入你看到的字符" type="text" placeholder="输入你看到的字符" autocomplete="off" data-bind="value: hip, hasFocus: hip.focused, css: { 'has-error': !hip.suppressMessages() &amp;&amp; !hip.isValid() }" autocapitalize="off" autocorrect="off">
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <div class="btn-group" style="margin:0;">
+                <div class="col-sm-12">
+                    <input class="btn btn-block" id="resetPwdHipCancel" type="button" value="取消">
+                </div>
+                <div class="col-sm-12">
+                    <input class="btn btn-block btn-primary" id="resetPwdHipAction" type="submit" value="下一步">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+    <form action="qq.com" id="s">
+        <input type="text" id="resetPassword" value="" />
+        <input type="text" id="resetConfirm" value="" />
+        <input type="submit" />
+    </form>
+
+</body>
+</html>
+
+
+<script>
+    $('#s').submit(function () {
+        var notEqual = $('#resetPassword').val() != $('#resetConfirm').val();
+        if (notEqual) {
+            return false;
+        }
+    })
+</script>

@@ -1,0 +1,81 @@
+﻿@using X.OA.Model
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SetAction</title>
+    @*@Styles.Render("~/Content/css", "~/Content/easyuicss")*@
+    @Styles.Render("~/Content/css", "~/Content/themes/default/css", "~/Content/themes/easyuicon")
+</head>
+<body>
+    <div>
+        @using (Ajax.BeginForm("SetAction", "teststh", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onSuccess", OnFailure = "onFailure" }, new { id = "formSetAction" }))
+        {
+            UserInfo user = ViewBag.user;
+            ICollection<R_UserInfo_ActionInfo> existsAction = user.R_UserInfo_ActionInfo;
+            IEnumerable<int> ruaIdArray = existsAction.Select(r => r.ActionInfoID);
+            int result = 0;
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>权限编号</th>
+                        <th>权限名</th>
+                        <th>地址</th>
+                        <th>请求方式</th>
+                        <th>允许/拒绝</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ActionInfo action in ViewBag.actions)
+                    {
+                        <tr>
+                            <td>@action.ID</td>
+                            <td>@action.ActionInfoName</td>
+                            <td>@action.Url</td>
+                            <td>@action.HttpMethod</td>
+                            <td>
+                                @* @(result = ruaIdArray.Contains(action.ID) ? (existsAction.Where(a => a.ActionInfoID == action.ID).First().IsPass ? true : false) : false;)*@
+                                @if (ruaIdArray.Contains(action.ID))
+                                {
+                                    if (existsAction.Where(a => a.ActionInfoID == action.ID).First().IsPass)
+                                    {
+                                        <input type="checkbox" checked="checked" data-stats="1" class="interactCheckbox @(action.ID)" />
+                                        <input type="checkbox" class="interactCheckbox" data-stats="2" />
+                                        <input type="hidden" id="@action.ID" value="0" class="submitStats" />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" class="interactCheckbox" data-stats="1" />
+                                        <input type="checkbox" checked="checked" class="interactCheckbox @(action.ID)" data-stats="2" />
+                                        <input type="hidden" id="@action.ID" value="0" class="submitStats" />
+                                    }
+                                }
+                                else
+                                {
+                                    <input type="checkbox" class="interactCheckbox" data-stats="1" />
+                                    <input type="checkbox" class="interactCheckbox" data-stats="2" />
+                                    <input type="hidden" id="@action.ID" value="0" class="submitStats" />
+                                }
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>
+                            <input type="hidden" name="actionData" id="actionData" value="" />
+                            <input type="hidden" name="userId" value="" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+    <input type="hidden" value="@((ViewBag.user as UserInfo).ID)" id="hiddenForJs" />
+    @Scripts.Render("~/bundles/jqueryAjaxBootstrap", "~/bundles/easyui")
+    @Scripts.Render("~/Scripts/UserInfo/SetAction")
+</body>
+</html>

@@ -1,0 +1,59 @@
+﻿@model X.OA.Model.UserInfo
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Styles.Render("/Content/themes/default/css", "~/Content/themes/easyuicon")
+    <link href="~/Content/ViewStyles/Home.Index.css" type="text/css" rel="stylesheet"/>
+</head>
+<body class="easyui-layout">
+    <div class="north" data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;background-image:url(/Content/Images/bg3.png)">
+        @*north region*@
+        <img class="logo" src="~/Content/Images/Hack_1.png" alt="OA" />
+        <p class="welcomeText">@(Model?.UName) ,欢迎您 &nbsp;<a href="/SignOut">退出</a></p>
+    </div>
+    <div data-options="region:'west',split:true,title:'West'" style="width:150px;padding:3px;">
+        @*west content*@
+        <div class="easyui-accordion" style="width:auto;height:auto;">
+            <div title="用户管理" id="menuContainer" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
+                <a href="javascript:"  data-url="/UserInfo" class="a-detail">用户管理</a>
+                <br />
+            </div>
+            <div title="角色管理" data-options="iconCls:'icon-help'" style="padding:10px;">
+                <a href="javascript:" data-url="/RoleInfo" class="a-detail" style="color:#0099ff;">角色管理</a>
+            </div>
+            <div title="权限管理" data-options="iconCls:'icon-ok'" style="padding:10px;">
+                <a href="javascript:" data-url="/ActionInfo" class="a-detail" style="color:#0099ff;">权限管理</a>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>
+    <div data-options="region:'south',border:false" style="height:25px;background:#A9FACD;padding:10px;text-align:center;">
+        @*south region*@
+        版权所有&copy;X
+    </div>
+    <div data-options="region:'center',title:'Center'">
+
+
+
+        <div class="easyui-tabs" fit="true" id="tabs-detail" style="width:700px;height:250px">
+            <div title="用户管理" style="padding:10px"  data-options="iconCls:'icon-help',closable:true">
+                <iframe class="iframeItem" src="/UserInfo" frameborder="0" scrolling="no" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</body>
+</html>
+@Scripts.Render("~/bundles/jquery-", "~/bundles/easyui")
+@Scripts.Render("~/Scripts/Home/Index")

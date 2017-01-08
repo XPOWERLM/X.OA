@@ -1,0 +1,35 @@
+﻿@using X.OA.Model
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SetRole</title>
+</head>
+<body>
+    <div>
+        @using (Ajax.BeginForm("SetRole", "RoleInfo", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onSuccess", OnFailure = "OnFailure" }, new { id = "formSetRole" }))
+        {
+            IEnumerable<RoleInfo> roles = ViewBag.roles;
+            UserInfo user = ViewBag.user;
+            //IEnumerable<int> roleIds = from role in user.RoleInfoes select role.ID;
+            IEnumerable<int> roleIds = user.RoleInfoes.Select(r => r.ID);
+            foreach (RoleInfo role in roles)
+            {
+                <label for="@role.ID">@(role.RoleName)</label>
+                <input type="checkbox" class="roles" data-userid="@role.ID" id="@role.ID" @(roleIds.Contains(role.ID) ? "checked='checked'" : string.Empty) />
+                <br />
+            }
+            <input type="hidden" name="userId" value="@user.ID" />
+            <input id="hiddenId" type="hidden" name="roleIDs" />
+        }
+    </div>
+</body>
+</html>
+@*@Scripts.Render("~/bundles/jquery-", "~/bundles/unobtrusive-ajax")*@
+@Scripts.Render("~/bundles/jqueryAjax")
+@Scripts.Render("~/Scripts/UserInfo/SetRole")

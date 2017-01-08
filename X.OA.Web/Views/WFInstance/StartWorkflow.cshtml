@@ -1,0 +1,90 @@
+﻿@model X.OA.Model.WF_Instance
+@using X.OA.Model
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>StartWorkflow</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundle/bootstrap")
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <input type="hidden" name="WF_TempID" value="@Request["id"]" />
+
+        <div class="form-horizontal">
+            <h4>发起申请</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.InstanceName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.InstanceName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.InstanceName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Level, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.EditorFor(model => model.Level, new { htmlAttributes = new { @class = "form-control" } })*@
+                    <select class="form-control" name="Level">
+                        <option value="2">一般</option>
+                        <option value="1">重要</option>
+                        <option value="0">紧急</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.SubForm, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.EditorFor(model => model.SubForm, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @*@Html.TextAreaFor(model=>model.SubForm,new { @class = "form-control" ,id = "ckSubForm", value = ViewBag.WFTemplate.TempForm })*@
+                    <textarea id="ckSubForm">
+                        @ViewBag.WFTemplate.TempForm
+                    </textarea>
+                    @Html.ValidationMessageFor(model => model.SubForm, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.WF_TempID, "WF_TempID", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <lable class="control-label col-md-2">处理人</lable>
+                <div class="col-md-10">
+                    @Html.DropDownList("userList", null, htmlAttributes: new { @class = "form-control",name= "processBy" })
+                    @Html.ValidationMessageFor(model => model.WF_TempID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <script>
+        CKEDITOR.replace('ckSubForm');
+    </script>
+</body>
+</html>

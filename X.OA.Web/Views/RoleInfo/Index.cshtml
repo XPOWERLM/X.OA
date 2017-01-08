@@ -1,0 +1,82 @@
+﻿@model X.OA.Model.RoleInfo
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Styles.Render("~/Content/themes/default/css", "~/Content/themes/easyuicon")
+
+</head>
+<body>
+    <div id="dvSearch">
+        <form id="searchForm">
+            角色名：<input type="text" name="searchName" id="searchName" value="" />&nbsp;
+            备注：<input type="text" name="searchRemark" id="searchRemark" value="" />&nbsp;
+            <input type="button" value="搜索" id="btnSearch" />
+        </form>
+    </div>
+    @*Role info*@
+    <table id="dgRoleInfo" title="Role Info" class="easyui-datagrid" style="width:auto;height:auto;"
+           url="/RoleInfo/RoleData"
+           idField="UName" pagination="true"
+           iconCls="icon-remove"
+           toolbar="#tbRoleInfo">
+
+        <thead>
+            <tr>
+                <th field="ck" checkbox="true"></th>
+                <th field="RoleName" width="80">RoleName</th>
+                <th field="Remark" width="80">Remark</th>
+                <th field="ModifiedOn" width="80" align="right">ModifiedOn</th>
+            </tr>
+        </thead>
+    </table>
+
+    @*Add Role*@
+    <div id="dgAddRole">
+        @using (Ajax.BeginForm("AddRole", "RoleInfo", new AjaxOptions { HttpMethod = "Post", OnSuccess = "addCallback" }, new { id = "dgAddRoleForm", style = "display:none;" }))
+        {
+            @Html.LabelFor(l => l.RoleName)
+            @Html.TextBoxFor(l => l.RoleName)
+            <br />
+            @Html.LabelFor(l => l.Remark)
+            @Html.TextBoxFor(l => l.Remark)
+            <br />
+            @Html.LabelFor(l => l.ModifiedOn)
+            @Html.TextBoxFor(l => l.ModifiedOn)
+        }
+    </div>
+
+    @*Edit Role*@
+    <div id="dgEditRole">
+        @using (Ajax.BeginForm("EditRole", "RoleInfo", new AjaxOptions { HttpMethod = "Post", OnSuccess = "editCallback" }, new { id = "dgEditRoleForm", style = "display:none;" }))
+        {
+            @Html.LabelFor(l => l.RoleName, new { @for = "editUName" })
+            @Html.TextBoxFor(l => l.RoleName, new { id = "editUName" })
+            <br />
+            @Html.LabelFor(l => l.Remark, new { @for = "editUPwd" })
+            @Html.TextBoxFor(l => l.Remark, new { id = "editUPwd" })
+            <br />
+            @Html.LabelFor(l => l.ModifiedOn, new { @for = "editRemark" })
+            @Html.TextBoxFor(l => l.ModifiedOn, new { id = "editRemark" })
+
+            @Html.HiddenFor(l => l.ID, new { id = "editID" })
+        }
+    </div>
+
+    @*toolbar*@
+    <div id="tbRoleInfo">
+        <a href="#" id="tbBtnAdd" class="easyui-linkbutton" iconCls="icon-add" plain="true">Add</a>
+        <a href="#" id="tbBtnEdit" class="easyui-linkbutton" iconCls="icon-edit" plain="true">Edit</a>
+        <a href="#" id="tbBtnDel" class="easyui-linkbutton" iconCls="icon-remove" plain="true">Delete</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true">Save</a>
+    </div>
+</body>
+</html>
+@Scripts.Render("~/bundles/jqueryAjax", "~/bundles/easyui")
+@Scripts.Render("~/Scripts/RoleInfo/Index")

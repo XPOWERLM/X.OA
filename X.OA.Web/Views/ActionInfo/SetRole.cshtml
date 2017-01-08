@@ -1,0 +1,43 @@
+﻿@using X.OA.Model
+@model X.OA.Model.ActionInfo
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SetRole</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jqueryAjaxBootstrap")
+
+</head>
+<body>
+    <div>
+
+        @using (Ajax.BeginForm("SetRole", "ActionInfo", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onSuccess", OnFailure = "onFailure" }, new { id = "formSetRole", @class = "table table-borderd table-striped table-hover" }))
+        {
+            ActionInfo action = ViewBag.action;
+            IEnumerable<RoleInfo> roles = ViewBag.roles;
+            IEnumerable<int> actionIdArray = action.RoleInfoes.Select(model => model.ID);
+
+            <h1>为<span style="color:aqua;">@(action.ActionInfoName)</span>设置角色</h1>
+
+            foreach (RoleInfo role in roles)
+            {
+                <lable for="@role.ID">@role.RoleName</lable>
+                <input type="checkbox" value="@role.ID" data-userid="@role.ID" @(actionIdArray.Contains(role.ID) ? "checked='checked'" : string.Empty) class="role" />
+                <br />
+                <input type="hidden" name="actionId" id="actionId" value="@action.ID" />
+                <input type="hidden" name="roleIds" id="roleIds" value="" />
+            }
+            <input type="submit" id="btnSetRoleSubmit" value="Save" class="btn btn-success" />
+
+        }
+    </div>
+</body>
+</html>
+@Scripts.Render("~/Scripts/ActionInfo/SetRole")

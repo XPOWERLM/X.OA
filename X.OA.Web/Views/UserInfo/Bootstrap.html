@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <!--<link href="../../Content/themes/default/easyui.css" rel="stylesheet" />-->
+    <!--<link href="../../Content/themes/icon.css" rel="stylesheet" />-->
+    <script src="../../Scripts/jquery-1-11-3.js"></script>
+    <!--<script src="../../Scripts/jquery-easyui-1-4-5.js"></script>
+    <script src="../../Scripts/locale/easyui-lang-zh_CN.js"></script>
+    <script src="../../Scripts/jquery.unobtrusive-ajax.js"></script>-->
+    <script src="../../Scripts/bootstrap.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse" style="margin-bottom:1px;">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <div class="navbar-brand">
+                    <small class="glyphicon glyphicon-console"></small> X
+                </div>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right nav-stacked">
+                <li>
+                    <a href='#'>
+                        <span class="glyphicon glyphicon-tasks"></span>
+                        <i class="badge">1</i>
+                    </a>
+                </li>
+                <li>
+                    <a href='#'><span class="glyphicon glyphicon-bell"></span></a>
+                </li>
+                <li>
+                    <a href='#'><span class="glyphicon glyphicon-envelope"></span></a>
+                </li>
+                <li>
+                    <a href="#" data-toggle="dropdown" style="padding: 5px 0;">
+                        <img src="../../Content/Images/user.png" width="40" alt="" class="img-circle" />
+                        <small>Welcome</small>
+                        X
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#" class="active">
+                                <span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Setting
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Profile
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-2" style="padding-right:0;border-right:1px solid #ccc;box-shadow:rgba(0,0,0,.3) 1px 0 2px;">
+            <div id="search" style="padding:5px;">
+                <div class="input-group">
+                    <input type="text" class="form-control input-sm" value="" />
+                    <div class="input-group-btn">
+                        <a href="#" class="btn btn-warning btn-sm">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-group" id="boxA">
+                <div class="panel panel-success" >
+                    <div class="panel-heading">
+                        <a href="#collapseA" data-toggle="collapse" data-parent="#boxA" class="panel-title">用户管理</a>
+                    </div>
+                    <div class="panel-collapse collapse in" id="collapseA">
+                        <div class="panel-body">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">用户列表</a></li>
+                                <li><a href="#">用户添加</a></li>
+                                <li><a href="#">用户删除</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <a href="#collapseB" data-toggle="collapse" data-parent="#boxA" class="panel-title">角色管理</a>
+                    </div>
+                    <div class="panel-collapse collapse" id="collapseB">
+                        <div class="panel-body">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">角色列表</a></li>
+                                <li><a href="#">角色添加</a></li>
+                                <li><a href="#">角色删除</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-10" style="padding-left:0;">
+            <div class="bread-crumb" style="height:40px;margin-bottom:0;">
+                <ul class="breadcrumb">
+                    <li><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;<a href="#">Home</a></li>
+                    <li><a href="#">User</a></li>
+                    <li>Add</li>
+                </ul>
+            </div>
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <a href="#" class="panel-title">用户管理</a>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>brand</th>
+                                <th>name</th>
+                                <th>channel</th>
+                                <th>inventory</th>
+                                <th>price</th>
+                                <th>isSale</th>
+                                <th>operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Apple</td>
+                                <td>7S Plus</td>
+                                <td>128G</td>
+                                <td>10</td>
+                                <td>4500</td>
+                                <td>yes</td>
+                                <td>add</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Apple</td>
+                                <td>7S Plus</td>
+                                <td>128G</td>
+                                <td>10</td>
+                                <td>4500</td>
+                                <td>yes</td>
+                                <td>add</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Apple</td>
+                                <td>7S Plus</td>
+                                <td>128G</td>
+                                <td>10</td>
+                                <td>4500</td>
+                                <td>yes</td>
+                                <td>add</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="8" align="center">
+                                    <ul class="pagination">
+                                        <li>
+                                            <a href="#">&laquo;</a>
+                                            <a href="#">1</a>
+                                            <a href="#">2</a>
+                                            <a href="#">3</a>
+                                            <a href="#">4</a>
+                                            <a href="#">5</a>
+                                            <a href="#">6</a>
+                                            <a href="#">7</a>
+                                            <a href="#">&raquo;</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

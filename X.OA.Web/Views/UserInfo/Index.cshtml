@@ -1,0 +1,102 @@
+﻿@model X.OA.Model.UserInfo
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Styles.Render("~/Content/themes/default/css", "~/Content/themes/easyuicon", "~/Content/css")
+
+</head>
+<body>
+    @*Search*@
+    <div id="dvSearch" class="row">
+        <form id="searchForm">
+            <div class="col-sm-2"></div>
+            <div class="input-group col-sm-7">
+                <input placeholder="用户名" class="form-control input-sm" type="text" name="searchName" id="searchName" value="" />&nbsp;
+                <input placeholder="备注" class="form-control input-sm" type="text" name="searchRemark" id="searchRemark" value="" />&nbsp;
+                <div class="input-group-btn">
+                    <input type="button" class="btn btn-success btn-sm" value="搜索" id="btnSearch" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    @*User info*@
+    <table id="dgUserInfo" title="User Info" class="easyui-datagrid" style="width:auto;height:auto;"
+           url="/UserInfo/UserData"
+           idField="ID" pagination="true"
+           iconCls="icon-remove"
+           toolbar="#tbUserInfo">
+
+        <thead>
+            <tr>
+                <th field="ck" checkbox="true"></th>
+                <th field="UName" width="80">Item ID</th>
+                <th field="UPwd" width="80">Product ID</th>
+                <th field="DelFlag" width="80" align="right">Unit Cost</th>
+            </tr>
+        </thead>
+    </table>
+
+    @*Add user*@
+    <div id="dgAddUser">
+        @using (Ajax.BeginForm("AddUser", "UserInfo", new AjaxOptions { HttpMethod = "Post", OnSuccess = "addCallback" }, new { id = "dgAddUserForm", style = "display:none;" }))
+        {
+            @Html.LabelFor(l => l.UName)
+            @Html.TextBoxFor(l => l.UName)
+            <br />
+            @Html.LabelFor(l => l.UPwd)
+            @Html.PasswordFor(l => l.UPwd)
+            <br />
+            @Html.LabelFor(l => l.Remark)
+            @Html.TextBoxFor(l => l.Remark)
+        }
+    </div>
+
+    @*Edit user*@
+    <div id="dgEditUser">
+        @using (Ajax.BeginForm("EditUser", "UserInfo", new AjaxOptions { HttpMethod = "Post", OnSuccess = "editCallback" }, new { id = "dgEditUserForm", style = "display:none;" }))
+        {
+            @Html.LabelFor(l => l.UName, new { @for = "editUName" })
+            @Html.TextBoxFor(l => l.UName, new { id = "editUName" })
+            <br />
+            @Html.LabelFor(l => l.UPwd, new { @for = "editUPwd" })
+            @Html.PasswordFor(l => l.UPwd, new { id = "editUPwd" })
+            <br />
+            @Html.LabelFor(l => l.Remark, new { @for = "editRemark" })
+            @Html.TextBoxFor(l => l.Remark, new { id = "editRemark" })
+
+            @Html.HiddenFor(l => l.ID, new { id = "editID" })
+        }
+    </div>
+
+    @*Set Action*@
+    <div id="divAction" style="display:none;">
+        <iframe id="iframeAction" style="width:100%;height:100%"></iframe>
+    </div>
+
+    @*Set Role*@
+    <div id="divRole" style="display:none;">
+        <iframe id="iframeRole" src="" scrolling="no" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+
+    @*toolbar*@
+    <div id="tbUserInfo">
+        <a href="#" id="tbBtnAdd" class="easyui-linkbutton" iconCls="icon-add" plain="true">Add</a>
+        <a href="#" id="tbBtnEdit" class="easyui-linkbutton" iconCls="icon-edit" plain="true">Edit</a>
+        <a href="#" id="tbBtnDel" class="easyui-linkbutton" iconCls="icon-remove" plain="true">Delete</a>
+        <a href="#" id="tbBtnRole" class="easyui-linkbutton" iconCls="icon-add" plain="true">Role</a>
+        <a href="#" id="tbBtnAction" class="easyui-linkbutton" iconCls="icon-add" plain="true">Action</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true">Save</a>
+    </div>
+</body>
+</html>
+@*@Scripts.Render("~/bundles/jquery-", "~/bundles/easyui", "~/bundles/unobtrusive-ajax", "~/bundles/bootstrap")*@
+@Scripts.Render("~/bundles/jqueryAjaxBootstrap", "~/bundles/easyui")
+@Scripts.Render("~/Scripts/UserInfo/Index")

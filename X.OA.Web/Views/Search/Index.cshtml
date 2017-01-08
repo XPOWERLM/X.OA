@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/Content/bootstrapjquery-ui")
+    @Scripts.Render("~/bundles/jqueryBootstrapjq-ui")
+    <style>
+        em {
+            font-style: normal;
+            color: #c00;
+        }
+    </style>
+</head>
+<body>
+    <div id="dvSearch" class="row">
+        <form id="searchForm">
+            <div class="col-sm-2"></div>
+            <div class="input-group col-sm-7">
+                <input placeholder="搜索" class="form-control input-sm" type="text" name="keyWord" id="keyWord" value="" />&nbsp;
+                <div class="input-group-btn">
+                    <input type="button" class="btn btn-success btn-sm" value="搜索" id="btnSearch" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="divResult">
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    @Scripts.Render("~/Scripts/Search/Index")
+</body>
+</html>

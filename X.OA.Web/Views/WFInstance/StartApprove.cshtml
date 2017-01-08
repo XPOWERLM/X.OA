@@ -1,0 +1,96 @@
+﻿@model X.OA.Model.WF_Instance
+@using X.OA.Model
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>StartApprove</title>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <style>
+        .redColor{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4>WF_Instance</h4>
+        <hr />
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2">开始审批</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>流程标题</td>
+                    <td>@Model.InstanceName</td>
+                </tr>
+                <tr>
+                    <td>发起人</td>
+                    <td>@ViewBag.startUser</td>
+                </tr>
+                <tr>
+                    <td>发起时间</td>
+                    <td>@Model.SubTime</td>
+                </tr>
+                <tr>
+                    <td>流程模板</td>
+                    <td>@Model.WF_Temp.TempName</td>
+                </tr>
+                <tr>
+                    <td>申请内容</td>
+                    <td>
+                        <textarea name="" id="subForm">
+                            @Model.SubForm
+                        </textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>流程状态</td>
+                    <td>
+                        @foreach (WF_StepInfo step in Model.WF_StepInfo)
+                        {
+                            <p>
+                                审批步骤：@step.SetpName <br />
+                                审批人：@step.ProcessBy <br />
+                                审批标题：@step.Title <br />
+                                审批意见：@step.Comment <br />
+                                审批结果：<span class="redColor">@(@step.StepResult == 0 ? "通过" : "驳回")</span><br />
+                            </p>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>审批标题</td>
+                    <td>
+                        <input type="text" class="form-control" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>审批意见</td>
+                    <td>
+                        <input type="text" class="form-control" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>流转到：</td>
+                    <td>
+                        @Html.DropDownList("userList")
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        CKEDITOR.replace('subForm');
+    </script>
+</body>
+</html>

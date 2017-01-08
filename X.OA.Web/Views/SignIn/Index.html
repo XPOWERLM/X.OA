@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="renderer" content="webkit" />
+    <title>Sign In</title>
+    <meta charset="utf-8" />
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <script src="../../Scripts/jquery-1.12.4.js"></script>
+    <script src="../../Scripts/bootstrap.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        body {
+            padding: 50px;
+            background-color: #6f5499;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="padding:30px;background-color:#896eb2;">
+        <h2 class="page-header">OA系统登录</h2>
+        <div class="row">
+            <div class="col-md-offset-3" style="">
+                <form class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-1 control-label">用户名</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="用户名" value="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-1 control-label">密码</label>
+                            <div class="col-md-4">
+                                <input type="password" class="form-control" placeholder="密码" value="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-1 control-label">验证码</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="验证码" value="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-1">
+                            <img src="CAPTCHA.jpg" class="img-responsive img-rounded" alt="CAPTCHA" />
+                        </div>
+                    </div>
+
+                    
+                    <div class="row">
+                        <br />
+                        <span class="col-md-2">
+                            <label>记住我</label>
+                            <input type="checkbox" value="" />
+                        </span>
+
+                        <span class="col-md-offset-2">
+                            <a href="#" class="h5">找回密码</a>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row ">
+                            <div class="col-md-5">
+                                <br />
+                                <input type="button" class="btn btn-block btn-success" value="登录" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

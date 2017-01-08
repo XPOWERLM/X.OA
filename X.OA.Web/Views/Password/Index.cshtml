@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>恢复你的帐户</title>
+    @Styles.Render("~/Content/css")
+    <style>
+        body.cb {
+            text-align: center;
+        }
+
+
+        img {
+            vertical-align: middle;
+        }
+
+        #iSigninName {
+            margin: 0 auto;
+        }
+
+        #textCAPTCHA {
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        #imgCAPTCHA {
+            max-width: 390px;
+        }
+
+        #container {
+            text-align: center;
+        }
+
+
+        .text-subheader, h2 {
+            font-size: 34px;
+            line-height: 40px;
+            font-weight: 200;
+            font-size: 2.12rem;
+            line-height: 2.5rem;
+            padding-bottom: 3.18px;
+            padding-top: 3.18px;
+        }
+
+        .email-input-max-width {
+            max-width: 390px;
+        }
+    </style>
+</head>
+<body class="cb">
+    @using (Ajax.BeginForm("Reset", "Password", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onSuccess", OnFailure = "onFailure" }, new { id = "ResetForm" }))
+    {
+        <div class="textbody">
+            <img src="/Content/Images/AppCentipede_Microsoft.png" alt="" class="img-centipede" />
+        </div>
+        <div id="container" class="row">
+            <div class="text-subheader" id="iResetPwdHipTitle">恢复你的帐户</div>
+            <div class="row">
+                <div class="col-xs-24 text-body text-block-body" id="iExplanationText">我们可以帮助你重置密码和安全信息。首先，请输入你的 OA 帐户，然后按照下面的说明操作。</div>
+            </div>
+            <input name="iSigninName" class="form-control dirltr email-input-max-width" id="iSigninName" lang="en" type="text" maxlength="113" placeholder="OA 用户名">
+            <input name="iSigninEmail" style="margin:0 auto;" class="form-control dirltr email-input-max-width" id="iSigninEmail" lang="en" type="email" maxlength="113" placeholder="电子邮件">
+            <img src="/CAPTCHA" data-src="/CAPTCHA?id=1" id="imgCAPTCHA" alt="CAPTCHA" />
+            <input name="CAPTCHA" class="spHipNoClear form-control email-input-max-width" id="textCAPTCHA" style="text-align: left;" spellcheck="false" aria-label="输入你看到的字符" type="text" placeholder="输入你看到的字符" autocomplete="off" data-bind="value: hip, hasFocus: hip.focused, css: { 'has-error': !hip.suppressMessages() &amp;&amp; !hip.isValid() }" autocapitalize="off" autocorrect="off">
+            <span id="errorMsg"></span>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="btn-group" style="margin:0;">
+                    <div class="col-sm-12">
+                        <input class="btn btn-block" id="resetPwdHipCancel" type="button" value="取消">
+                    </div>
+                    <div class="col-sm-12">
+                        <input class="btn btn-block btn-primary" id="resetPwdHipAction" type="submit" value="下一步">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    }
+
+</body>
+</html>
+@*@Scripts.Render("~/bundles/jquery-", "~/bundles/bootstrap", "~/bundles/unobtrusive-ajax")*@
+@Scripts.Render("~/bundles/jqueryAjaxBootstrap")
+@Scripts.Render("~/Scripts/Common/CAPTCHA")
+@Scripts.Render("~/Scripts/Password/Index")

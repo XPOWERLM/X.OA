@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>恢复你的帐户</title>
+    @Styles.Render("~/Content/css")
+    <style>
+        body.cb {
+            text-align: center;
+        }
+
+
+        img {
+            vertical-align: middle;
+        }
+
+        #iSigninName {
+            margin: 0 auto;
+        }
+
+        .damnCenter{
+            margin: 0 auto;
+        }
+
+        #textCAPTCHA {
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        #imgCAPTCHA {
+            max-width: 390px;
+        }
+
+        #container {
+            text-align: center;
+        }
+
+
+        .text-subheader, h2 {
+            font-size: 34px;
+            line-height: 40px;
+            font-weight: 200;
+            font-size: 2.12rem;
+            line-height: 2.5rem;
+            padding-bottom: 3.18px;
+            padding-top: 3.18px;
+        }
+
+        .email-input-max-width {
+            max-width: 390px;
+        }
+    </style>
+</head>
+<body class="cb">
+    @using (Ajax.BeginForm("Verify", "Password", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onSuccess", OnFailure = "onFailure" }, new { id = "ResetForm" }))
+    {
+        <div class="textbody">
+            <img src="/Content/Images/AppCentipede_Microsoft.png" alt="" class="img-centipede" />
+        </div>
+        <div id="container" class="row">
+            <div class="text-subheader" id="iResetPwdHipTitle">验证你的身份</div>
+            <div class="row">
+                <div class="col-xs-24 text-body text-block-body" id="iExplanationText">如果 @ViewBag.Email 与你帐户上的电子邮件地址匹配，我们将向你发送验证码。</div>
+            </div>
+            <input name="resetCode" class="form-control dirltr email-input-max-width damnCenter" id="resetCode" lang="en" type="text" maxlength="113" placeholder="输入代码">
+            <input name="resetPassword" class="form-control dirltr email-input-max-width damnCenter" id="resetPassword" lang="en" type="password" maxlength="113" placeholder="输入密码">
+            <input name="resetConfirm" class="form-control dirltr email-input-max-width damnCenter" id="resetConfirm" lang="en" type="password" maxlength="113" placeholder="再次输入密码">
+            <span id="errorMsg" style="color:red;"></span>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="btn-group" style="margin:0;">
+                    <div class="col-sm-12">
+                        <input class="btn btn-block" id="resetPwdHipCancel" type="button" value="取消">
+                    </div>
+                    <div class="col-sm-12">
+                        <input class="btn btn-block btn-primary" id="resetPwdHipAction" type="submit" value="下一步">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    }
+
+</body>
+</html>
+@Scripts.Render("~/bundles/jqueryAjaxBootstrap")
+@Scripts.Render("~/Scripts/Password/Verify")

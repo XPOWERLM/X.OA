@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DFSModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DFSModelStoreContainer">
+    <EntitySet Name="ServerInfoes" EntityType="DFSModel.Store.ServerInfoes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ImageInfoes" EntityType="DFSModel.Store.ImageInfoes" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ServerInfoImageInfo" Association="DFSModel.Store.ServerInfoImageInfo">
+      <End Role="ServerInfo" EntitySet="ServerInfoes" />
+      <End Role="ImageInfo" EntitySet="ImageInfoes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ServerInfoes">
+    <Key>
+      <PropertyRef Name="ServerId" />
+    </Key>
+    <Property Name="ServerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServerName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ServerUrl" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PicPath" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MaxAmount" Type="int" Nullable="false" />
+    <Property Name="CurrentAmount" Type="int" Nullable="false" />
+    <Property Name="IsAlive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ImageInfoes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImageName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ServerId" Type="int" Nullable="false" />
+    <Property Name="ServerInfoServerId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ServerInfoImageInfo">
+    <End Role="ServerInfo" Type="DFSModel.Store.ServerInfoes" Multiplicity="1" />
+    <End Role="ImageInfo" Type="DFSModel.Store.ImageInfoes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServerInfo">
+        <PropertyRef Name="ServerId" />
+      </Principal>
+      <Dependent Role="ImageInfo">
+        <PropertyRef Name="ServerInfoServerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DFSModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DFSModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ServerInfoes" EntityType="DFSModel.ServerInfo" />
+          <EntitySet Name="ImageInfoes" EntityType="DFSModel.ImageInfo" />
+          <AssociationSet Name="ServerInfoImageInfo" Association="DFSModel.ServerInfoImageInfo">
+            <End Role="ServerInfo" EntitySet="ServerInfoes" />
+            <End Role="ImageInfo" EntitySet="ImageInfoes" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="ServerInfo">
+          <Key>
+            <PropertyRef Name="ServerId" />
+          </Key>
+          <Property Name="ServerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServerName" Type="String" Nullable="false" />
+          <Property Name="ServerUrl" Type="String" Nullable="false" />
+          <Property Name="PicPath" Type="String" Nullable="false" />
+          <Property Name="MaxAmount" Type="Int32" Nullable="false" />
+          <Property Name="CurrentAmount" Type="Int32" Nullable="false" />
+          <Property Name="IsAlive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ImageInfoes" Relationship="DFSModel.ServerInfoImageInfo" FromRole="ServerInfo" ToRole="ImageInfo" />
+        </EntityType>
+        <EntityType Name="ImageInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageName" Type="String" Nullable="false" />
+          <Property Name="ServerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ServerInfo" Relationship="DFSModel.ServerInfoImageInfo" FromRole="ImageInfo" ToRole="ServerInfo" />
+          <Property Name="ServerInfoServerId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ServerInfoImageInfo">
+          <End Type="DFSModel.ServerInfo" Role="ServerInfo" Multiplicity="1" />
+          <End Type="DFSModel.ImageInfo" Role="ImageInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServerInfo">
+              <PropertyRef Name="ServerId" />
+            </Principal>
+            <Dependent Role="ImageInfo">
+              <PropertyRef Name="ServerInfoServerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DFSModelStoreContainer" CdmEntityContainer="DFSModelContainer">
+    <EntitySetMapping Name="ServerInfoes">
+      <EntityTypeMapping TypeName="IsTypeOf(DFSModel.ServerInfo)">
+        <MappingFragment StoreEntitySet="ServerInfoes">
+          <ScalarProperty Name="ServerId" ColumnName="ServerId" />
+          <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+          <ScalarProperty Name="ServerUrl" ColumnName="ServerUrl" />
+          <ScalarProperty Name="PicPath" ColumnName="PicPath" />
+          <ScalarProperty Name="MaxAmount" ColumnName="MaxAmount" />
+          <ScalarProperty Name="CurrentAmount" ColumnName="CurrentAmount" />
+          <ScalarProperty Name="IsAlive" ColumnName="IsAlive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImageInfoes">
+      <EntityTypeMapping TypeName="IsTypeOf(DFSModel.ImageInfo)">
+        <MappingFragment StoreEntitySet="ImageInfoes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="ServerId" ColumnName="ServerId" />
+          <ScalarProperty Name="ServerInfoServerId" ColumnName="ServerInfoServerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
